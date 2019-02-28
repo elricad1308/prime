@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<base href="http://localhost/">-->
+        <base href="http://www.prime.cic.ipn.mx/~jcaguilar1308/">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="application-name" content="GraphIt!">
+        <meta name="author" content="Jose Aguilar-Canepa">
+        <meta name="description" content="A simple JavaScript Graph Visualization Engine">
+        <meta name="keywords" content="javascript,graph,vertex,edge,digraph,directed,undirected">
+        <meta name="apple-mobile-web-app-title" content="GraphIt!">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+        <meta name="msapplication-config" content="favicons/browserconfig.xml">
+        <meta name="theme-color" content="#cc0000">
+        <title>GraphIt! | jcaguilar @ NDS-Lab</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.structure.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+        <link rel="stylesheet" href="css/vis.min.css">
+        <link rel="stylesheet" href="css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/graphit.min.css">
+        <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="favicons/manifest.json">
+        <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#cc0000">
+        <link rel="shortcut icon" href="favicons/favicon.ico">
+    </head>
+    <body>
+        <header id="menu">
+        </header>
+        <article>
+            <div class="container-fluid title">
+                <h1>GraphIt!</h1>
+                <p class="lead">A simple JavaScript Graph Visualization Engine</p>
+            </div>
+            <div id="graph-container" class="container-fluid col-xs-12 col-md-8">
+                <div id="graph"></div>
+            </div>
+            <div id="graph-controller" class="container-fluid col-xs-12 col-md-4">
+                <div id="ctrl-tabs">
+                    <ul>
+                        <li><a href="tools/graphit.html#io-tab">I/O</a></li>
+                        <li><a href="tools/graphit.html#add-tab">Add</a></li>
+                        <li><a href="tools/graphit.html#mod-tab">Modify</a></li>
+                        <li><a href="tools/graphit.html#opt-tab">Options</a></li>
+                        <li><a href="tools/graphit.html#about-tab">About</a></li>
+                    </ul>
+                    <div id="io-tab" class="ctrl-accordion">
+                        <h3>Load a DIMACS graph</h3>
+                        <div>
+                            <p class="instruction">
+                                You can upload graphs stored in the <a href="http://mat.gsia.cmu.edu/COLOR/general/ccformat.ps" target="_blank">DIMACS Graph Coloring format</a> by clicking the button below.
+                            </p>
+                            <label for="dimacs-inp" class="ctrl-label">DIMACS file:</label>
+                            <input id="dimacs-inp" type="file">
+                        </div>
+                        <h3>Load a JSON graph</h3>
+                        <div>
+                            <p class="instruction">
+                                You can upload graphs stored in JSON format, as defined by the Java Graph Viewer Engine, by clicking the button below.
+                            </p>
+                            <label for="json-inp" class="ctrl-label">JSON file:</label>
+                            <input id="json-inp" type="file">
+                        </div>
+                    </div>
+                    <div id="add-tab" class="ctrl-accordion">
+                        <h3>Add a node</h3>
+                        <div>
+                            <label for="anod-id" class="ctrl-label">Node ID:</label>
+                            <input id="anod-id" class="ctrl-input" type="number" placeholder="Node ID" title="Set the unique identifier for the new node."><br>
+                            <label for="anod-label" class="ctrl-label">Node label:</label>
+                            <input id="anod-label" class="ctrl-input" type="text" placeholder="Node label" title="Set the text to display inside the node."><br>
+                            <label for="anod-color">Node color:</label>
+                            <input id="anod-color" class="ctrl-input jscolor {closable:true,closeText:'Close'}" value="D2E5FF" title="Select the color for the new node."><br>
+                            <div class="ctrl-button-div">
+                                <button id="anod-btn" class="ctrl-btn">Add node</button>
+                            </div>
+                        </div>
+                        <h3>Add an edge</h3>
+                        <div>
+                            <label for="aedg-from" class="ctrl-label">From:</label>
+                            <input id="aedg-from" class="ctrl-input" type="number" title="Set the origin node of the edge."><br>
+                            <label for="aedg-to" class="ctrl-label">To:</label>
+                            <input id="aedg-to" class="ctrl-input" type="number" title="Set the target node of the edge."><br>
+                            <div class="ctrl-button-div">
+                                <button id="aedg-btn" class="ctrl-btn">Add edge</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mod-tab" class="ctrl-accordion">
+                        <h3>Modify node</h3>
+                        <div>
+                            <label for="mnod-id" class="ctrl-label">Node ID:</label>
+                            <input id="mnod-id" class="ctrl-input" type="text" placeholder="Node ID" title="Node ID's cannot be modified." disabled><br>
+                            <label for="mnod-label" class="ctrl-label">Label:</label>
+                            <input id="mnod-label" class="ctrl-input" type="text" placeholder="Node label" title="Set the new text to display inside the node."><br>
+                            <label for="mnod-color" class="ctrl-label">Color:</label>
+                            <input id="mnod-color" class="ctrl-input jscolor {closable:true,closeText:'Close'}" value="d2e5ff" title="Select the new color for the node."><br>
+                            <div class="ctrl-button-div">
+                                <button id="mnod-btn" class="ctrl-btn">Modify node</button>
+                                <button id="dnod-btn" class="ctrl-btn">Delete node</button>
+                            </div>
+                        </div>
+                        <h3>Modify edge</h3>
+                        <div>
+                            <label for="medg-id" class="ctrl-label">Edge ID:</label>
+                            <input id="medg-id" class="ctrl-input" type="text" placeholder="Edge ID" title="Edge ID's cannot be modified." disabled><br>
+                            <label for="medg-from" class="ctrl-label">From:</label>
+                            <input id="medg-from" class="ctrl-input" type="number" title="Set the new origin node of the edge." placeholder="'From' node ID"><br>
+                            <label for="medg-to" class="ctrl-label">To:</label>
+                            <input id="medg-to" class="ctrl-input" type="number" title="Set the new target node of the edge." placeholder="'To' node ID"><br>
+                            <div class="ctrl-button-div">
+                                <button id="medg-btn" class="ctrl-btn">Modify edge</button>
+                                <button id="dedg-btn" class="ctrl-btn">Delete edge</button>
+                            </div>
+                        </div>
+                        <h3>Modify graph</h3>
+                        <div>
+                            <div class="ctrl-button-div">
+                                <button id="subg-btn" class="ctrl-btn" title="Delete from the graph all nodes and edges, except those nodes selected AND the edges between them.">Subgraph</button>
+                                <button id="nsbg-btn" class="ctrl-btn" title="Create a subgraph from the neighborhood of the selected vertex">N-Subgraph</button>
+                                <button id="dngh-btn" class="ctrl-btn" title="Delete the selected vertex's neighborhood from the graph. This can be seen as the inverse of the N-Subgraph action.">Del. Neighborhood</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="opt-tab" class="ctrl-accordion">
+                        <h3>Node options</h3>
+                        <div class="ctrl-subaccordion">
+                            <h3>Appearance</h3>
+                            <div>
+                                <label for="gnod-shape" class="ctrl-slabel">Shape:</label>
+                                <select id="gnod-shape" class="ctrl-sinput ctrl-sselect" title="Select the shape for all nodes.">
+                                    <option value="ellipse" selected>Ellipse</option>
+                                    <option value="circle">Circle</option>
+                                    <option value="database">Database</option>
+                                    <option value="box">Box</option>
+                                    <option value="text">Text</option>
+                                    <option value="diamond">Diamond</option>
+                                    <option value="dot">Dot</option>
+                                    <option value="star">Star</option>
+                                    <option value="triangle">Triangle</option>
+                                    <option value="triangleDown">Inverse triangle</option>
+                                    <option value="square">Square</option>
+                                </select>
+                                <label id="gnod-lblsize" for="gnod-size" class="ctrl-slabel opt-hidden">Size:</label>
+                                <input id="gnod-size" class="ctrl-sinput opt-hidden" type="number" min="1" value="25" placeholder="25" max="100" title="Set the size for shapes with labels outside of them (Diamond, Dot, Star, Triangle, Inverse triangle and Square). Other shapes are not affected by this value." disabled>
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-hidden" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, nodes will no longer be visible on the graph!">
+                                    <label for="gnod-hidden" class="ctrl-slabel ctrl-slblcheck">Hidden</label>
+                                </div>
+                            </div>
+                            <h3>Border</h3>
+                            <div>
+                                <label for="gnod-border-width" class="ctrl-slabel">Border width:</label>
+                                <input id="gnod-border-width" class="ctrl-sinput" type="number" min="0" value="1" placeholder="1" max="25" title="Set the border width for all nodes.">
+                                <label for="gnod-border-color" class="ctrl-slabel">Border color:</label>
+                                <input id="gnod-border-color" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="2b7ce9" title="Select the border color for all nodes." onchange="changeGlobalNodeBorderColor(this.jscolor)">
+                                <label for="gnod-border-hcolor" class="ctrl-slabel">Border hover color:</label>
+                                <input id="gnod-border-hcolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="2b7ce9" title="Select the border hover color for all nodes." onchange="changeGlobalNodeBorderHoverColor(this.jscolor)">
+                                <label for="gnod-border-swidth" class="ctrl-slabel">Border highlight width:</label>
+                                <input id="gnod-border-swidth" class="ctrl-sinput" type="number" min="0" value="2" placeholder="2" max="25" title="Set the border width for all selected nodes.">
+                                <label for="gnod-border-scolor" class="ctrl-slabel">Border highlight color:</label>
+                                <input id="gnod-border-scolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="2b7ce9" title="Select the border color for all selected nodes." onchange="changeGlobalNodeBorderHighlightColor(this.jscolor)">
+                                <label for="gnod-border-radius" class="ctrl-slabel">Border radius:</label>
+                                <input id="gnod-border-radius" class="ctrl-sinput" type="number" min="0" value="6" placeholder="6" max="25" title="Set the 'roundness' of 'Box' shapes (this value does not have any effect on other forms).">
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-border-dashes" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, nodes will have dashed borders.">
+                                    <label for="gnod-border-dashes" class="ctrl-slabel ctrl-slblcheck">Border dashes</label>
+                                </div>
+                            </div>
+                            <h3>Color</h3>
+                            <div>
+                                <label for="gnod-color" class="ctrl-slabel">Color:</label>
+                                <input id="gnod-color" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="97c2fc" title="Select the color for all nodes." onchange="changeGlobalNodeColor(this.jscolor)">
+                                <label for="gnod-hcolor" class="ctrl-slabel">Hover color:</label>
+                                <input id="gnod-hcolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="d2e5ff" title="Select the hover color for all nodes." onchange="changeGlobalNodeHoverColor(this.jscolor)">
+                                <label for="gnod-scolor" class="ctrl-slabel">Highlight color:</label>
+                                <input id="gnod-scolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="d2e5ff" title="Select the color for all selected nodes." onchange="changeGlobalNodeHighlightColor(this.jscolor)">
+                            </div>
+                            <h3>Font</h3>
+                            <div id="gnod-font-tab">
+                                <label for="gnod-font-face" class="ctrl-slabel">Font face:</label>
+                                <select id="gnod-font-face" class="ctrl-sinput ctrl-sselect selectpicker" title="Select the font face for all nodes' labels. Note that some fonts may not be available in all systems.">
+                                    <option value="0" class="lucida" selected>Lucida Sans Unicode</option>
+                                    <option value="1" class="trebuchet">Trebuchet MS</option>
+                                    <option value="2" class="tahoma">Tahoma</option>
+                                    <option value="3" class="verdana">Verdana</option>
+                                    <option value="4" class="impact">Impact</option>
+                                    <option value="5" class="arial">Arial</option>
+                                    <option value="6" class="comic">Comic Sans MS</option>
+                                    <option value="7" class="georgia">Georgia</option>
+                                    <option value="8" class="palatino">Palatino Linotype</option>
+                                    <option value="9" class="times">Times New Roman</option>
+                                    <option value="10" class="courier">Courier New</option>
+                                    <option value="11" class="console">Lucida Console</option>
+                                </select>
+                                <label for="gnod-font-size" class="ctrl-slabel">Font size:</label>
+                                <input id="gnod-font-size" class="ctrl-sinput" type="number" min="8" value="14" placeholder="14" max="72" title="Set the font size (in pixels) for all nodes' labels.">
+                                <label for="gnod-font-color" class="ctrl-slabel">Font color:</label>
+                                <input id="gnod-font-color" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="343434" title="Select the font color for all nodes' labels." onchange="changeGlobalNodeFontColor(this.jscolor)">
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-font-sbold" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, node labels' font will become bold when selected." checked>
+                                    <label for="gnod-font-sbold" class="ctrl-slabel ctrl-slblcheck">Font highlight bold</label>
+                                </div>
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-font-bg" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, node's labels will have a rectangle of the selected color behind them.">
+                                    <label for="gnod-font-bg" class="ctrl-slabel ctrl-slblcheck">Font background</label>
+                                </div>
+                                <label id="gnod-font-lblbgcolor" for="gnod-font-bgcolor" class="ctrl-slabel opt-hidden">Font background color:</label>
+                                <input id="gnod-font-bgcolor" class="ctrl-sinput opt-hidden jscolor {closable:true,closeText:'Close'}" value="ffffff" title="Select the font background color for all nodes." onchange="changeGlobalNodeFontBackground(this.jscolor)">
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-font-stroke" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, node labels' font will have a stroke around them.">
+                                    <label for="gnod-font-stroke" class="ctrl-slabel ctrl-slblcheck">Font stroke</label>
+                                </div>
+                                <label id="gnod-font-lblskwidth" for="gnod-font-skwidth" class="ctrl-slabel opt-hidden">Font stroke width:</label>
+                                <input id="gnod-font-skwidth" class="ctrl-sinput opt-hidden" type="number" min="0" value="0" placeholder="0" max="25" title="Set the stroke width (in pixels) for all nodes' labels.">
+                                <label id="gnod-font-lblskcolor" for="gnod-font-skcolor" class="ctrl-slabel opt-hidden">Font stroke color:</label>
+                                <input id="gnod-font-skcolor" class="ctrl-sinput opt-hidden jscolor {closable:true,closeText:'Close'}" value="ffffff" title="Select the stroke color for all nodes." onchange="changeGlobalNodeFontStroke(this.jscolor)">
+                            </div>
+                            <h3>Physics</h3>
+                            <div>
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-physics" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If unchecked, nodes will not move, except for manual dragging." checked>
+                                    <label for="gnod-physics" class="ctrl-slabel ctrl-slblcheck">Physics</label>
+                                </div>
+                                <label for="gnod-mass" class="ctrl-slabel">Mass:</label>
+                                <input id="gnod-mass" class="ctrl-sinput" type="number" min="1" value="1" placeholder="1" max="10" title="Set the mass for all nodes: the higher the mass, the higher will be the repulsion of nodes between them.">
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-fixed" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, nodes will not be able to move (in any direction).">
+                                    <label for="gnod-fixed" class="ctrl-slabel ctrl-slblcheck">Fixed</label>
+                                </div>
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-fixed-x" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, nodes will not be able to move on the X axis.">
+                                    <label id="gnod-fixed-lblx" for="gnod-fixed-x" class="ctrl-slabel ctrl-slblcheck">Fixed (X)</label>
+                                </div>
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-fixed-y" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, nodes will not be able to move on the Y axis.">
+                                    <label id="gnod-fixed-lbly" for="gnod-fixed-y" class="ctrl-slabel ctrl-slblcheck">Fixed (Y)</label>
+                                </div>
+                            </div>
+                            <h3>Shadow</h3>
+                            <div>
+                                <div class="ctrl-divchk">
+                                    <input id="gnod-shadow" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, nodes will have a shadow below them.">
+                                    <label for="gnod-shadow" class="ctrl-slabel ctrl-slblcheck">Shadow</label>
+                                </div>
+                                <label id="gnod-shadow-lblcolor" for="gnod-shadow-color" class="ctrl-slabel opt-hidden">Color:</label>
+                                <input id="gnod-shadow-color" class="ctrl-sinput opt-hidden jscolor {closable:true,closeText:'Close'}" value="000000" title="Select the shadow color for all nodes." onchange="changeGlobalNodeShadowColor(this.jscolor)">
+                                <label id="gnod-shadow-lblalpha" class="ctrl-slabel ctrl-slblslider opt-hidden">Opacity:</label>
+                                <div id="gnod-shadow-alpha" class="ctrl-sinput ctrl-sslider opt-hidden slider" title="Select the shadow opacity for all nodes."></div>
+                                <label id="gnod-shadow-lblsize" for="gnod-shadow-size" class="ctrl-slabel opt-hidden">Blur:</label>
+                                <input id="gnod-shadow-size" class="ctrl-sinput opt-hidden" type="number" min="0" value="10" placeholder="10" max="25" title="Set the shadow length for all nodes.">
+                                <label id="gnod-shadow-lblx" for="gnod-shadow-x" class="ctrl-slabel opt-hidden">X Offset:</label>
+                                <input id="gnod-shadow-x" class="ctrl-sinput opt-hidden" type="number" min="-10" value="5" placeholder="5" max="10" title="Set the shadow Y offset for all nodes.">
+                                <label id="gnod-shadow-lbly" for="gnod-shadow-y" class="ctrl-slabel opt-hidden">Y Offset:</label>
+                                <input id="gnod-shadow-y" class="ctrl-sinput opt-hidden" type="number" min="-10" value="5" placeholder="5" max="10" title="Set the shadow Y offset for all nodes.">
+                            </div>
+                        </div>
+                        <h3>Edge options</h3>
+                        <div class="ctrl-subaccordion">
+                            <h3>Appearance</h3>
+                            <div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-dashes" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edges will be drawed with dashed lines.">
+                                    <label for="gedg-dashes" class="ctrl-slabel ctrl-slblcheck">Dashes</label>
+                                </div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-hidden" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edges will no longer be visible on the graph!">
+                                    <label for="gedg-hidden" class="ctrl-slabel ctrl-slblcheck">Hidden</label>
+                                </div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-physics" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If unchecked, edges will not move, except for manual dragging." checked>
+                                    <label for="gedg-physics" class="ctrl-slabel ctrl-slblcheck">Physics</label>
+                                </div>
+                                <label for="gedg-width" class="ctrl-slabel">Width:</label>
+                                <input id="gedg-width" class="ctrl-sinput" type="number" value="1" placeholder="1" max="10" title="Set the line width for all edges.">
+                            </div>
+                            <h3>Arrows</h3>
+                            <div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-arrows-to" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, an arrowhead will be drawed pointing to the 'to' node of all edges.">
+                                    <label for="gedg-arrows-to" class="ctrl-slabel ctrl-slblcheck">To</label>
+                                </div>
+                                <label id="gedg-arrows-lbltscale" for="gedg-arrows-tscale" class="ctrl-slabel">'To' arrow scale:</label>
+                                <input id="gedg-arrows-tscale" class="ctrl-sinput" type="number" min="1" value="1" placeholder="1" max="5" title="Set the scale factor for the 'to' arrowheads.">
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-arrows-middle" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, an arrowhead will be drawed at the middle point of all edges.">
+                                    <label for="gedg-arrows-middle" class="ctrl-slabel ctrl-slblcheck">Middle</label>
+                                </div>
+                                <label id="gedg-arrows-lblmscale" for="gedg-arrows-mscale" class="ctrl-slabel">'Middle' arrow scale:</label>
+                                <input id="gedg-arrows-mscale" class="ctrl-sinput" type="number" min="1" value="1" placeholder="1" max="5" title="Set the scale factor for the 'middle' arrowheads.">
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-arrows-from" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, an arrowhead will be drawed pointing to the 'from' node of all edges.">
+                                    <label for="gedg-arrows-from" class="ctrl-slabel ctrl-slblcheck">From</label>
+                                </div>
+                                <label id="gedg-arrows-lblfscale" for="gedg-arrows-fscale" class="ctrl-slabel">'From' arrow scale:</label>
+                                <input id="gedg-arrows-fscale" class="ctrl-sinput" type="number" min="1" value="1" placeholder="1" max="5" title="Set the scale factor for the 'from' arrowheads.">
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-arrows-strikethrough" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If unchecked, edges stops at the arrow." checked>
+                                    <label for="gedg-arrows-strikethrough" class="ctrl-slabel ctrl-slblcheck">Strikethrough</label>
+                                </div>
+                            </div>
+                            <h3>Color</h3>
+                            <div>
+                                <p class="ctrl-note"><strong>Note:</strong> due to some limitations on the underlying visualization engine, edge color is currently not working.</p>
+                                <label for="gedg-icolor" class="ctrl-slabel">Inherit:</label>
+                                <select id="gedg-icolor" class="ctrl-sinput ctrl-sselect" title="If a a value other than 'None' is selected, edges will have the same colors of its nodes. WARNING: 'Both' is computationally intensive, and can hinder performance.">
+                                    <option value="none">None</option>
+                                    <option value="from" selected>From</option>
+                                    <option value="to">To</option>
+                                    <option value="both">Both</option>
+                                </select>
+                                <label id="gedg-lblcolor" for="gedg-color" class="ctrl-slabel">Color:</label>
+                                <input id="gedg-color" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="848484" title="Select the color for all edges." onchange="changeGlobalEdgeColor(this.jscolor)">
+                                <label id="gedg-lblhcolor" for="gedg-hcolor" class="ctrl-slabel">Hover color:</label>
+                                <input id="gedg-hcolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="848484" title="Select the hover color for all edges." onchange="changeGlobalEdgeHoverColor(this.jscolor)">
+                                <label id="gedg-lblscolor" for="gedg-scolor" class="ctrl-slabel">Highlight color:</label>
+                                <input id="gedg-scolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="848484" title="Select the color for all selected edges." onchange="changeGlobalEdgeHighlightColor(this.jscolor)">
+                                <label class="ctrl-slabel ctrl-slblslider">Opacity:</label>
+                                <div id="gedg-acolor" class="ctrl-sinput ctrl-sslider slider" title="Select the opacity for all edges."></div>
+                            </div>
+                            <h3>Font</h3>
+                            <div id="gedg-font-tab">
+                                <label for="gedg-font-face" class="ctrl-slabel">Font face:</label>
+                                <select id="gedg-font-face" class="ctrl-sinput ctrl-sselect selectpicker" title="Select the font face for all edges' labels. Note that some fonts may not be available in all systems.">
+                                    <option value="0" class="lucida" selected>Lucida Sans Unicode</option>
+                                    <option value="1" class="trebuchet">Trebuchet MS</option>
+                                    <option value="2" class="tahoma">Tahoma</option>
+                                    <option value="3" class="verdana">Verdana</option>
+                                    <option value="4" class="impact">Impact</option>
+                                    <option value="5" class="arial">Arial</option>
+                                    <option value="6" class="comic">Comic Sans MS</option>
+                                    <option value="7" class="georgia">Georgia</option>
+                                    <option value="8" class="palatino">Palatino Linotype</option>
+                                    <option value="9" class="times">Times New Roman</option>
+                                    <option value="10" class="courier">Courier New</option>
+                                    <option value="11" class="console">Lucida Console</option>
+                                </select>
+                                <label for="gedg-font-size" class="ctrl-slabel">Font size:</label>
+                                <input id="gedg-font-size" class="ctrl-sinput" type="number" min="8" value="14" placeholder="14" max="72" title="Set the font size (in pixels) for all edges' labels.">
+                                <label for="gedg-font-color" class="ctrl-slabel">Font color:</label>
+                                <input id="gedg-font-color" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="343434" title="Select the font color for all edges' labels." onchange="changeGlobalEdgeFontColor(this.jscolor)">
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-label-sbold" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edge labels' font will become bold when selected." checked>
+                                    <label for="gedg-label-sbold" class="ctrl-slabel ctrl-slblcheck">Font highlight bold</label>
+                                </div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-font-bg" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edge's labels will have a rectangle of the selected color behind them.">
+                                    <label for="gedg-font-bg" class="ctrl-slabel ctrl-slblcheck">Font background</label>
+                                </div>
+                                <label id="gedg-font-lblbgcolor" for="gedg-font-bgcolor" class="ctrl-slabel">Font background color:</label>
+                                <input id="gedg-font-bgcolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="cc0000" title="Select the font background color for all edges." onchange="changeGlobalEdgeFontBackgroundColor(this.jscolor)">
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-font-stroke" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edge labels' font will have a stroke around them.">
+                                    <label for="gedg-font-stroke" class="ctrl-slabel ctrl-slblcheck">Font stroke</label>
+                                </div>
+                                <label id="gedg-font-lblskwidth" for="gedg-font-skwidth" class="ctrl-slabel">Font stroke width:</label>
+                                <input id="gedg-font-skwidth" class="ctrl-sinput" type="number" min="0" value="0" placeholder="0" max="25" title="Set the stroke width (in pixels) for all edges' labels.">
+                                <label id="gedg-font-lblskcolor" for="gedg-font-skcolor" class="ctrl-slabel">Font stroke color:</label>
+                                <input id="gedg-font-skcolor" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="ffffff" title="Select the stroke color for all edges." onchange="changeGlobalEdgeFontStrokeColor(this.jscolor)">
+                            </div>
+                            <h3>Shadow</h3>
+                            <div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-shadow" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edges will have a shadow below them.">
+                                    <label for="gedg-shadow" class="ctrl-slabel ctrl-slblcheck">Shadow</label>
+                                </div>
+                                <label id="gedg-shadow-lblcolor" for="gedg-shadow-color" class="ctrl-slabel">Color:</label>
+                                <input id="gedg-shadow-color" class="ctrl-sinput jscolor {closable:true,closeText:'Close'}" value="000000" title="Select the shadow color for all edges." onchange="changeGlobalEdgeShadowColor(this.jscolor)">
+                                <label id="gedg-shadow-lblalpha" class="ctrl-slabel ctrl-slblslider">Opacity:</label>
+                                <div id="gedg-shadow-alpha" class="ctrl-sinput ctrl-sslider slider" title="Select the shadow opacity for all edges."></div>
+                                <label id="gedg-shadow-lblsize" for="gedg-shadow-size" class="ctrl-slabel">Blur:</label>
+                                <input id="gedg-shadow-size" class="ctrl-sinput" type="number" min="0" value="10" placeholder="10" max="25" title="Set the shadow length for all edges.">
+                                <label id="gedg-shadow-lblx" for="gedg-shadow-x" class="ctrl-slabel">X Offset:</label>
+                                <input id="gedg-shadow-x" class="ctrl-sinput" type="number" min="-10" value="5" placeholder="5" max="10" title="Set the shadow X offset for all edges.">
+                                <label id="gedg-shadow-lbly" for="gedg-shadow-y" class="ctrl-slabel">Y Offset:</label>
+                                <input id="gedg-shadow-y" class="ctrl-sinput" type="number" min="-10" value="5" placeholder="5" max="10" title="Set the shadow Y offset for all nodes.">
+                            </div>
+                            <h3>Smoothess</h3>
+                            <div>
+                                <div class="ctrl-divchk">
+                                    <input id="gedg-smooth" class="ctrl-sinput ctrl-scheckbox" type="checkbox" title="If checked, edges will be drawed as quadratic bezier curves. It make edges look better, but also is more computationally expensive.">
+                                    <label for="gedg-smooth" class="ctrl-slabel ctrl-slblcheck">Smooth</label>
+                                </div>
+                                <label id="gedg-smooth-lbltype" for="gedg-smooth-type" class="ctrl-slabel">Type:</label>
+                                <select id="gedg-smooth-type" class="ctrl-sinput ctrl-sselect" title="Select the type of curve.">
+                                    <option value="dynamic" selected>Dynamic</option>
+                                    <option value="continuous">Continuous</option>
+                                    <option value="discrete">Discrete</option>
+                                    <option value="diagonalCross">Diagonal cross</option>
+                                    <option value="straightCross">Straight cross</option>
+                                    <option value="horizontal">Horizontal</option>
+                                    <option value="vertical">Vertical</option>
+                                    <option value="curvedCW">Curved CW</option>
+                                    <option value="curvedCCW">Curver CCW</option>
+                                    <option value="cubicBezier">Cubic Bezier</option>
+                                </select>
+                                <label id="gedg-smooth-lblforcedir" for="gedg-smooth-forcedir" class="ctrl-slabel">Force direction:</label>
+                                <select id="gedg-smooth-forcedir" class="ctrl-sinput ctrl-sselect" title="Forces the direction of the curve in hierarchical layouts. This option only has effect on 'Cubic Bezier' curves.">
+                                    <option value="none">None</option>
+                                    <option value="horizontal">Horizontal</option>
+                                    <option value="vertical">Vertical</option>
+                                </select>
+                                <label id="gedg-smooth-lblroundness" class="ctrl-slabel ctrl-slblslider">Roundness:</label>
+                                <div id="gedg-smooth-roundness" class="ctrl-sinput ctrl-sslider slider" title="Select the roundness of all curves EXCEPT 'Dynamic' curves."></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="about-tab">
+                        <img src="favicons/graphit/favicon-16x16.png" class="app-icon" alt="Application icon" title="This is a piece of graphite. Got it?">
+                        <label class="app-title-lbl">GraphIt! 0.5 <em>alpha</em></label>
+                        <label class="app-subtitle-lbl">A simple JavaScript Graph Visualization Engine</label>
+                        <label class="copyright-lbl">Copyright &copy; 2016 Jose Aguilar-Canepa</label>
+                        <p>
+                            This application is free software: you can redistribute it and/or modify it under the terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GNU General Public License</a> as published by the Free Software Fundation.
+                        </p>
+                        <p>
+                            This application is distributed in the hope that it will be useful, but <strong>WITHOUT ANY WARRANTY</strong>; without even the implied warranty of <strong>MERCHANTABILITY</strong> or <strong>FITNESS FOR A PARTICULAR PURPOSE</strong>. See the GNU General Public License for more details.
+                        </p>
+                        <p>
+                            GraphIt! was designed entirely with <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3</a> and <a href="http://jqueryui.com/" target="_blank">JQueryUI</a>.
+                        </p>
+                        <p>
+                            Graphs on the application are made possible thanks to the <a href="http://visjs.org/" target="_blank">vis.js</a> library.
+                        </p>
+                        <p>
+                            The color picker used to choose colors is brought to you thanks to <a href="http://jscolor.com/" target="_blank">jscolor</a>.
+                        </p>
+                        <p>
+                            GraphIt! is still on development! Please, report any ideas, comments, bugs or errors to <a href="mailto:jc.aguilar1308@gmail.com?subject=GraphIt%20Feedback" target="_blank">my email</a>
+                        </p>
+                        <div class="badges">
+                            <a href="http://www.w3.org/html/logo/" target="_blank">
+                                <img id="html5-badge" src="https://www.w3.org/html/logo/badge/html5-badge-h-css3-graphics-semantics.png" alt="HTML5-compliant site." title="HTML5-compliant site.">
+                            </a>
+                            <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank">
+                                <img id="css3-badge" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="CSS3-compliant site." title="CSS3-compliant site."/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vis.min.js"></script>
+        <script src="js/jscolor.min.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
+        <script src="js/graphit.js"></script>
+        <script>$('#menu').load('menu.html');$(document).ready(init)</script>
+    </body>
+</html>

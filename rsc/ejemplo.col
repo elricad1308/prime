@@ -1,0 +1,19 @@
+c ejemplo.col
+c
+c Estas líneas son comentarios
+c Tu programa debe ignorarlos
+c
+c Nuestro grafo de ejemplo tiene 6 vertices
+c y 7 aristas
+p EDGE 6 7
+c Los comentarios pueden aparecer en cualquier parte
+e 1 2
+e 1 5
+e 2 3
+c Observa que no hay comas entre los descriptores de aristas
+e 2 5
+e 3 4
+e 4 5
+e 4 6
+c Observa que también hay un descriptor de arista por cada arista del grafo
+

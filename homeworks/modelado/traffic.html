@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<base href="http://localhost/">-->
+        <base href="http://www.prime.cic.ipn.mx/~jcaguilar1308/">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="author" content="Jose Aguilar-Canepa">
+        <meta name="description" content="Screenshots from a Python traffic simulator">
+        <meta name="keywords" content="python,traffic,simulation">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+        <meta name="msapplication-config" content="favicons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <title>Traffic simulation | jcaguilar @ NDS - Lab</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicons/favicon-194x194.png" sizes="194x194">
+        <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="favicons/manifest.json">
+        <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#cc0000">
+        <link rel="shortcut icon" href="favicons/favicon.ico">
+    </head>    
+    <body>
+        <header id="menu">
+        </header>
+        <article>
+            <div class="container-fluid title">
+                <h1>Traffic Simulation</h1>
+                <p class="lead">A simple traffic simulation in Python</p>
+            </div>
+            <div class="container-fluid">
+                <figure class="screenshot">
+                    <img src="img/traffic01.png" alt="A screenshot about how to use the script.">
+                    <figcaption>
+                        The help of the program.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="container-fluid main-content">
+                <section>
+                    <h2>What is this?</h2>
+                    <p>
+                        This page shows how to use the Traffic simulator. To run it, you'll need Python 3.4 or higher. You can download and install the latest Python interpreter <a href="https://www.python.org/downloads/" target="_blank">here</a>.
+                    </p>
+                    <p>
+                        Once installed, run the program by typing the following command:
+                    </p>
+                    <div class="code-div">
+                        <code class="standalone-code">
+                         python[3] traffic.py [-b B] [-c C] [-t T] 
+                        </code>
+                    </div>
+                    <p>where:</p>
+                    <ul>
+                        <li><strong>[-b B]</strong> (<em>optional</em>): sets the <strong>b</strong>raking probability of the model. The parameter B must be a number between 0 and 1. If not provided, a default brake probability of 0.4 will be used by the model. Example: <code>python[3] traffic.py -b 0.25</code></li>
+                        <li><strong>[-c C]</strong> (<em>optional</em>): sets the <strong>c</strong>ollision probability of the model. The parameter C must be a number between 0 and 1. If not provided, a default collision probability of 0.1 will be used by the model. Example: <code>python[3] traffic.py -c 0.75</code></li>
+                        <li><strong>[-t T]</strong> (<em>optional</em>): sets the number of i<strong>t</strong>erations that the simulation will run. The parameter T must be a positive number. If not provided, the simulation will run for 50 iterations before stopping. Example: <code>python[3] traffic.py -t 100</code></li>
+                    </ul>
+                    <p class="note">
+                        <strong>Note:</strong> depending on your system, the [3] at the end of the <code>python</code> command may or may not be needed. Generally, UNIX-like systems (including most Linux distros and Mac OS X) come with Python 2 pre-installed, so it is needed to specify that you want to run Python 3 (i.e., you need to type <code>python3</code> instead of just <code>python</code>). Windows systems do not come with Python, so unless you have installed it before, the "3" is not needed.                        
+                    </p>
+                    <p>
+                        You can also view this manual directly from the program by typing
+                    </p>
+                    <div class="code-div">
+                        <code class="standalone-code">
+                            python[3] traffic.py -h
+                        </code>
+                    </div>
+                </section>
+                <section>
+                    <h2>The model</h2>
+                    <p>
+                        The script models a microscopic approach to the traffic simulation. The simulation is composed of small entities representing cars. Each "car" <code>a</code> has a velocity <code>v</code> and a position <code>x</code>. The position and velocity of each cars varies in each step of time <code>t</code>.
+                    </p>
+                    <p>The model uses 4 simple rules to work:</p>
+                    <ol>
+                        <li><code>if v < V_MAX then v <-- v + 1</code></li>
+                        <li><code>with probability p<sub>c</sub>, v <-- min(v, dist(a<sub>i</sub>, a<sub>i + 1</sub>))</code></li>
+                        <li><code>with probability p<sub>b</sub>, v <-- v - 1</code></li>
+                        <li><code>x<sub>t + 1</sub> <-- (x<sub>t</sub> + v)</code></li>
+                    </ol>
+                    <p>The first rule sets the maximum speed of each vehicle (just as every road, street, avenue and highway has a speed limit). The value <code>V_MAX</code> is set by the user (in the program, is 9).
+                    </p>
+                    <p>
+                        The second rule applies the <em>collision probability</em> <code>p<sub>c</sub></code>. That is, with a given probability (set by the user) a car may not preserve its security distance with the next car, and they collide. If two cars collide, neither of them moves during a stablished amount of time (in the program, is set to 5 iterations).
+                    </p>
+                    <p>
+                        The third rule applies the <em>braking probability</em> <code>p<sub>b</sub></code>. That is, with a given probability (set by the user) a car may decrease its velocity instead of increase it (just as you de-accelerate when you see traffic ahead, or when you're about to turn around a corner).
+                    </p>
+                    <p>
+                        The fourth and final rule just updates the position of each car (you advance a number of cells equal to the velocity you currently has).
+                    </p>
+                    <p>
+                        Using just this four simple rules, the model is able to show interesting behaviors as showed in the next section.
+                    </p>
+                </section>
+                <section>
+                    <h2>Screenshots</h2>
+                    <figure class="screenshot">
+                        <img src="img/traffic02.png" alt="A screenshot of the program showing normal traffic flow">
+                        <figcaption>
+                            A simulation showing normal traffic flow.
+                        </figcaption>
+                    </figure>
+                    <figure class="screenshot">
+                        <img src="img/traffic03.png" alt="A screenshot of the program showing heavy traffic">
+                        <figcaption>
+                            A simulation showing heavy traffic. Cars move slowly and closely one to another.
+                        </figcaption>
+                    </figure>
+                    <figure class="screenshot">
+                        <img src="img/traffic04.png" alt="A screenshot of the program showing a collision">
+                        <figcaption>
+                            A simulation showing a collision. Two cars are on the same cell and neither of them moves during some time.
+                        </figcaption>
+                    </figure>
+                </section>
+                <section>
+                    <h2>Download the program</h2>
+                    <p>
+                        You can download the full script <a href="rsc/traffic.py" target="_blank">here</a>. Feel free to examine, modify and re-distribute the code, but do not forget to cite the original source!
+                    </p>
+                </section>
+            </div>
+        </article>
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="text-muted">
+                    &copy; 2015 - 2016 José Aguilar-Canepa.
+                </p>
+            </div>
+        </footer>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>$('#menu').load('menu.html');</script>
+    </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<base href="http://localhost/">-->
+        <base href="http://www.prime.cic.ipn.mx/~jcaguilar1308/">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="application-name" content="bcd">
+        <meta name="author" content="Jose Aguilar-Canepa">
+        <meta name="description" content="A markov chain simulation of the BCD communication protocol.">
+        <meta name="keywords" content="bcd, protocol, markov, chain, simulation">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+        <meta name="msapplication-config" content="favicons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <title>BCD simulation | jcaguilar @ NDS-Lab</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicons/favicon-194x194.png" sizes="194x194">
+        <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="favicons/manifest.json">
+        <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#cc0000">
+        <link rel="shortcut icon" href="favicons/favicon.ico">
+    </head>
+    <body>
+        <header id="menu">            
+        </header>
+        <article>
+            <div class="container-fluid title">
+                <h1>Infinite BCD</h1>
+                <p class="lead">An analysis of the protocol</p>
+            </div>
+            <div id="htmlwidget_container" class="container-fluid plot">
+                <div id="experiment" class="plotly"></div>
+            </div>
+            <div class="container-fluid note-div">
+                <p class="note-small plot-note">
+                    <strong>The plot has been hidden!</strong>. The engine used to render the plot (WebGL) is too demanding for your device, so it has been disabled for your own safety. To see the plot, please visit this webpage from a desktop computer. Thanks for your comprehension!
+                </p>
+            </div>
+            <div class="control-div container-fluid">
+                <button title="Click to see the data for the Gauss-Seidel results with more detail." id="recursive">Toggle Recursive</button>
+                <button title="Click to see the data for the simulation results with more detail." id="sim">Toggle Simulation</button>
+                <button title="Click to see the data for the direct results with more detail." id="gauss">Toggle Gauss-Seidel</button>
+            </div>
+            <div class="container-fluid note-div">
+                <p class="note-small">
+                    <strong>WARNING:</strong> This webpage is NOT optimized for mobiles, due to the rendering engine the plot uses to show itself (WebGL), which may be too demanding for some devices. We strongly recommend to visit this page on desktop computers only.
+                </p>
+            </div>
+            <div class="container-fluid main-content">
+                <section>
+                    <h2>What is this?</h2>
+                    <p>
+                        The plot above shows the <em>waiting probability</em> of a BCD (Block Customer Delay) simulation, computed using a Markov chain using three different methods:
+                    </p>
+                    <ul>
+                        <li>Recursively</li>
+                        <li>Chain simulation</li>
+                        <li>Gauss-Seidel</li>
+                    </ul>
+                    <p>
+                        The following sections present a basic overview of the experiment and the theoretical framework behind it.
+                    </p>
+                </section>
+                <section>
+                    <h2>BCD</h2>
+                        This section provides a basic overview or the BCD protocol.
+                        <section>                        
+                            <h3>What it is?</h3>
+                            <p>
+                                BCD (<strong>B</strong>locked <strong>C</strong>ustomer <strong>D</strong>elay) is a protocol used in network systems. Generally, it consists of a set of n <em>servers</em> that can attend n <em>clients</em>. The state <em>i</em> indicates that i servers are attending i clients. The system also has a queue of a given size <em>S</em> in which customers can wait. The queue can be either finite or infinite.
+                            </p>
+                            <p>
+                                In BCD, clients can arrive at any time. At each instant in time, there is a probability  &#955; that a new client arrives to the system. The probability that two or more clients arrive at the <strong>exact same instant</strong> is so small that is effectively zero. Clients are attended by servers, and with probability &#956;  a client will be attended at a given instant (and therefore, it leaves the system). When n clients are inside the system, clients that arrive wait in the queue until they are attended. If the queue is finite, when <em>n + S</em> clients are in the system, no new clients are attended and the system is said to be <em>blocked</em> (just as in normal <strong>BCC</strong>). If the queue is infinite, the system never blocks. The plot above shows the probability that i clients are being attended when the number of servers changes.
+                            </p>
+                        </section>
+                        <section>
+                            <h3>How do I read the plot?</h3>                            
+                            <p>
+                                The number of servers <strong>S</strong> and number of clients being attended <strong>i</strong> are show in the x & y axis. The z axis represents the probability that i clients are being attended at a given time.
+                            </p>
+                            <p>
+                                Three layers of data are present on the plot (you can trigger them by clicking the corresponding buttons). The first layer is the probability computed using a recursive method. The second layer is an approximation obtained by a <a href="http://www.columbia.edu/~ks20/4703-Sigman/4703-07-Notes-MC.pdf" target="_blank">simulation of the chain</a>. Finally, the third layer is computed by using the <a href="https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method" target="_blank">Gauss-Seidel</a> method.
+                            </p>
+                        </section>
+                </section>
+            </div>
+        </article>
+        <aside>
+            <div class="container-fluid">
+                <h2>Notes</h2>
+                <p>
+                    The data simulation was obtained by running an implementation of BCD made in the Java programming language. You can download the program to examine it, compile it and run it <a href="rsc/BCD.java" target="_blank">here</a>. You also need to compile <a href="rsc/Util.java">this library</a> to successfully run the program.
+                </p>
+            </div>
+        </aside>
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="text-muted">
+                    Surface plotting is made possible thanks to the <a href="https://plot.ly/" target="_blank">plotly.js</a> library.<br>
+                    &copy; 2015 - 2016 José Aguilar-Canepa.
+                </p>
+            </div>
+        </footer>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/htmlwidgets.js"></script>
+        <script src="js/plotly-latest.min.js"></script>
+        <script src="js/plotly.js"></script>
+        <script src="js/infbcd.js"></script>
+        <script>$('#menu').load('menu.html');</script>
+    </body>
+</html>

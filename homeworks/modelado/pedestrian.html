@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<base href="http://localhost/">-->
+        <base href="http://www.prime.cic.ipn.mx/~jcaguilar1308/">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">        
+        <meta name="application-name" content="pedwalk">
+        <meta name="author" content="Jose Aguilar-Canepa">
+        <meta name="description" content="Pedestrian walking simulation">
+        <meta name="keywords" content="pedestrian walking,model,simulation">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+        <meta name="msapplication-config" content="favicons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <title>Pedestrian walking | jcaguilar @ NDS-Lab</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicons/favicon-194x194.png" sizes="194x194">
+        <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="favicons/manifest.json">
+        <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#cc0000">
+        <link rel="shortcut icon" href="favicons/favicon.ico">
+    </head>
+    <body>
+        <header id="menu">            
+        </header>
+        <article>
+            <div class="container-fluid title">
+                <h1>Pedestrian walking</h1>
+                <p class="lead">A computational model</p>
+            </div>
+            <div class="container-fluid canvas">
+                <figure>
+                    <canvas id="pedestrian" height="184" width="240">
+                        Sorry! Your web browser does not support HTML5. To view this content, you'll need an HTML5-compliant web browser.<br>
+                        Why don't you try <a href="https://www.mozilla.org/es-MX/firefox/new/" target="_blank">Firefox</a>? It's free!
+                    </canvas>
+                    <figcaption>A simple pedestrian model</figcaption>
+                </figure>
+            </div>
+            <div class="container-fluid">
+                <p class="note-small">
+                    <strong>Note:</strong> Due to rendering limitations, the simulation may not behave as expected on screens with a size smaller than 800 x 600, and pedestrians may seem to
+                    bump into each other. To optimal quality, we recommend to
+                    visit this webpage on a desktop computer.
+                </p>
+            </div>            
+            <div class="container-fluid main-content">
+                <section>
+                    <h2>Introduction</h2>
+                    <p>
+                        Do you know why in most transit regulations around the world pedestrians always have preference? Because we all, sooner or later, are pedestrians. Walking is one of the first skills a human being learns, and it is an essencial part of everyday life.
+                    </p>
+                    <p>
+                        Pedestrian walking models are useful in a couple of scenarios, such as mall and/or school designs, emergency routes tracing, mass-transit planning, etc. The simulation above shows an example of pedestrians walking on a crosswalk. To learn about how it works, keep reading on.
+                    </p>
+                </section>
+                <section>
+                    <h2>The basics</h2>
+                    <p>
+                        The space in the simulation is composed of single square called "cells". Depending on the size of your screen, the simulation can have 30 x 23 cells (on phones and tablets) or 20 x 15 cells (on desktop computers). For simplicity, the simulation is divided into regions:                        
+                    </p>
+                    <ul>
+                        <li>North: top</li>
+                        <li>Northeast: top right corner</li>
+                        <li>East: right</li>
+                        <li>Southeast: bottom right corner</li>
+                        <li>South: bottom</li>
+                        <li>Southwest: bottom left corner</li>
+                        <li>West: left</li>
+                        <li>Northwest: top left corner</li>
+                    </ul>
+                    <p>
+                        Each circle in the figure above represents a single person. Only one person can stand in a single cell at any time. Circles have a 'face' in form of an arrow, to show the cell the person is looking at.
+                    </p>                    
+                </section>
+                <section>
+                    <h2>Moving around</h2>
+                    <p>
+                        The drawing of the crosswalk is merely decorative. Pedestrians do not respect the crosswalk (just as in real life!) and they are allowed to move to any place (not just across the street).
+                    </p>
+                    <p>
+                        Each time a new pedestrian enters the scene, a random 'origin' and 'destination' coordinates are assigned, in such way that the pedestrian 'enters' the scene in any direction, and exits the scene in a different direction (for example, a pedestrian can originate in the East and lead to the North). Note that same direction of origin-destination is not allowed (it is not possible to originate in the East and lead to the East, for example): this ensures that the pedestrian <em>must</em> appear on the crosswalk at some point.
+                    </p>
+                    <p>
+                        Pedestrians move one step at a time: a pedestrian will always try to move in a direction that allows it to get closer to its destination (with some exceptions listed below). When a pedestrian "arrives" at a new cell, it procedes to compute the next step to advance, steers towards it (pedestrians only advance forward, though they can steer in any direction) and walk to the chosen cell. Then the pedestrian repeats the process until the destination point is reached.
+                    </p>
+                    <p>
+                        When a pedestrian reaches its destination, "leaves" the scene, and "re-enters" the scene with a brand new set of origin and destination points, and the process starts all over again.
+                    </p>
+                    <p>
+                        Pedestrians are also assigned a value called "hurry" that determines the speed at which they move in the scene. Pedestrians in a hurry will move twice the speed of non-hurry pedestrians. 'Hurry' value is randomly assigned every time a pedestrian enters the scene.
+                    </p>
+                </section>
+                <section>
+                    <h2>Avoiding collisions</h2>
+                    <p>
+                        Just as in real life you do not bump into random people when you walk in the street, pedestrians in
+                        the simulation try to stay away from each other.
+                    </p>
+                    <p>
+                        When pedestrians are computing the next step to advance, they also check if there is not another pedestrian already in the desired cell, OR if it will be another pedestrian in the near future. If two pedestrians desire to occupy the same cell, with a probility <em>p</em> they yield (i.e. they divert themselves to another adjacent non-occuped cell, even if this movement gets them farther from their destination). Note that pedestrians in a hurry are not so educated, so if a pedestrian is in a hurry it will move forward anyway, and may collide into another pedestrian!
+                    </p>
+                    <p>
+                        In some cases (with probability <em>[1 - p]</em>) the pedestrian might decide to wait that the other pedestrian advances, and it just lies in its spot.
+                    </p>
+                </section>
+                <section>
+                    <h2>Sources</h2>
+                    <p>
+                        All of the simulation's code is written completely on JavaScript. You can download and examine the source code <a href="js/pedestrian.js" target="_blank">here</a>.<br>
+                        The code requires <a href="http://code.jquery.com/jquery-2.1.4.min.js" target="_blank">JQuery 2.1.4</a> or higher to work.
+                    </p>
+                </section>
+            </div>
+        </article>
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="text-muted">
+                    &copy; 2015 - 2016 José Aguilar-Canepa. All rights reserved
+                </p>
+            </div>
+        </footer>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/pedestrian.js"></script>
+        <script>$('#menu').load('menu.html');</script>
+    </body>
+</html>

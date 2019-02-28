@@ -1,0 +1,59 @@
+table {
+  margin-bottom: 1em;
+}
+
+td {
+  text-align: center;
+}
+
+.control-tab {
+  margin: 10px auto;
+}
+
+.control-tab td {
+  width: 200px;
+}
+
+.rule-td {
+  text-align: right;
+}
+
+.rule-rtd {
+  text-align: left;
+}
+
+.size-buttons {
+  font-size: 20pt;
+  padding-left: 15px;
+}
+
+.size-button {
+  color: #bbb;
+}
+
+.size-button:hover {
+  color: red;
+}
+
+#automaton-canvas {
+  border: #eee 2px solid;
+  margin: none;
+  padding: none;
+}
+
+#canvas-tab {
+  border-spacing: none;
+  margin: 10px auto;
+}
+
+#rule-txt {
+  width: 190px;
+}
+
+#patterns {
+  background-color: #fafafa;
+  border: #eee 2px solid;
+  margin: 30px auto 0;
+  padding: 5px;
+  width: 695px;
+}

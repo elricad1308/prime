@@ -1,0 +1,171 @@
+@font-face {
+	font-family: Play;
+	src: url('../fonts/play.eot');
+	src: local('☺'), url('../fonts/play.woff') format('woff'), url('../fonts/play.ttf') format('truetype'), url('../fonts/play.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Encode Sans";
+	src: url('../fonts/encode-sans.eot');
+	src: local('☺'), url('../fonts/encode-sans.woff') format('woff'), url('../fonts/encode-sans.ttf') format('truetype'), url('../fonts/encode-sans.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+progress {
+  background: #fff;
+	border: 1px solid #900;
+	color: #c00;
+	font-size: 1.1em;
+	line-height: 1.5em;
+	width: 15em;
+}
+
+progress::-moz-progress-bar {
+	background: #c00;
+}
+
+progress::-webkit-progress-value {
+	background: #c00;
+}
+
+.skill-header {
+	display: block;
+	font-family: "Encode Sans", "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 18px;
+	margin: 25px auto 0;
+	padding-left: 21%;
+	text-align: center;
+  width: 100%;
+}
+
+.skill-name {
+	bottom: 4px;
+	font-family: Play, Verdana, Geneva, sans-serif;
+	margin-right: 5px;
+	position: relative;
+	text-align: right;
+  width: 120px;
+}
+
+.skill-rank {
+	bottom: 4px;
+	font-family: Play, Verdana, Geneva, sans-serif;
+  position: relative;
+	text-align: right;
+	width: 25px;
+}
+
+.skill-row {
+  display: block;
+	text-align: center;
+	width: 100%;
+}
+
+.stats {
+	bottom: 4px;
+	font-family: Play, Verdana, Geneva, sans-serif;
+	margin-right: 5px;
+	position: relative;
+	text-align: right;
+  width: 60px;
+}
+
+.stats-number {
+	bottom: 4px;
+	font-family: Play, Verdana, Geneva, sans-serif;
+  position: relative;
+	text-align: center;
+	width: 90px;
+}
+
+.stats-row {
+  text-align: center;
+}
+
+#about-level {
+	color: #c00;
+  font-family: Play, Verdana, Geneva, sans-serif;
+	font-size: 24px;
+	margin: 0 auto 25px;
+	text-align: center;
+}
+
+#about-name {
+	color: #c00;
+  font-family: "Encode Sans", "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 36px;
+	margin: 35px auto 0;
+	text-align: center;
+}
+
+#cur-skill-desc{
+	font-family: "Encode Sans", "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 18px;
+	margin: 20px auto 0;
+	text-align: center;
+}
+
+#cur-skill-img {
+	display: block;
+	margin: 30px auto 5px;
+  width: 320px;
+}
+
+#cur-skill-name {
+  font-family: Play, Verdana, Geneva, sans-serif;
+	font-size: 36px;
+	text-align: center;
+	width: 100%;
+}
+
+#health {
+	border-color: firebrick;
+	color: tomato;
+}
+
+#health::-moz-progress-bar {
+  background: tomato;
+}
+
+#health::-webkit-progress-value {
+  background: tomato;
+}
+
+#mana {
+  border-color: darkcyan;
+	color: cornflowerblue;
+}
+
+#mana::-moz-progress-bar {
+  background: cornflowerblue;
+}
+
+#mana::-webkit-progress-value {
+  background: cornflowerblue;
+}
+
+#stamina {
+  border-color: forestgreen;
+	color: green;
+}
+
+#stamina::-moz-progress-bar {
+  background: green;
+}
+
+#stamina::-webkit-progress-value {
+  background: green;
+}
+
+#profile {
+  background: url("../img/me15.png") no-repeat;
+  border-radius: 150px;
+  -moz-border-radius: 150px;
+  -webkit-border-radius: 150px;
+  height: 300px;
+	margin-left: 26%;
+  width: 300px;
+}

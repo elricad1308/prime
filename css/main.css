@@ -1,0 +1,416 @@
+cite {
+  color: #c00;
+  display: block;
+  font-weight: 700;
+  margin: 20px auto;
+  text-align: center;
+  width: 100%;
+}
+
+figcaption {
+  font-weight: bolder;
+  margin-top: 5px;
+}
+
+nav {
+  background-color: #c00;
+}
+
+.bye {
+  color: #c00;
+  font-size: 24px;
+  font-width: 800;
+  margin: 80px auto 30px;
+  text-align: center;
+}
+
+.canvas {
+  text-align: center;
+}
+
+.code-div {
+  text-align: center;
+}
+
+.container-fluid .text-muted {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  text-align: center;
+}
+
+.control-div {
+  text-align: center;
+}
+
+.control-div button {
+  height: 40px;
+  width : 150px;
+}
+
+.definition {
+  display: block;
+  margin: 20px auto 0;
+  text-align-center;
+  width: 100%;
+}
+
+.dropdown-menu > li > a {
+  background-color: #600;
+  color: #9d9d9d;
+}
+
+.dropdown-menu > li > a:hover {
+  background-color: #900;
+  color: #fff;
+}
+
+.life-button {
+  height: 60px;
+  width: 200px;
+}
+
+.main-content figure {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.main-content figcaption {
+  margin-bottom: 10px;
+}
+
+.main-content h2,
+aside h2 {
+  color: #c00;
+  font-weight: 600;
+  margin-left: 25px;
+}
+
+.main-content h3 {
+  color: #c00;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 30px;
+}
+
+.main-content p {
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: justify;
+}
+
+.navbar-brand {
+  height: auto;
+}
+
+.navbar-inverse {
+  background-color: #c00;
+  color: #fff;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: #bbb;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+  background-color: #600;
+  text-decoration: underline;
+}
+
+.navbar-inverse .navbar-nav > .open > a {
+  background-color: #900;
+}
+
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-inverse .navbar-nav > .open > a:hover {
+  background-color: #600;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+  background-color: #600;
+}
+
+.navbar-inverse .navbar-toggle {
+  background-color: #900;
+}
+
+.navbar-inverse .navbar-toggle:focus,
+.navbar-inverse .navbar-toggle:hover {
+  background-color: #600;
+}
+
+.navbar-nav {
+  line-height: 32px;
+  margin-top: 7px;
+}
+
+.navbar-nav .open .dropdown-menu {
+  background-color: #900;
+}
+
+.navbar-toggle {
+  line-height: 32px;
+  margin-top: 16px;
+  vertical-align: middle;
+}
+
+.note-div {
+  text-align: center;
+}
+
+.note-small {
+  display: none;
+  margin: 10px auto;
+  min-width: 240px;
+  text-align: center;
+  width: 80%;
+}
+
+.plot {
+  margin : 0 auto;
+  text-align: center;
+  width : 1024px;
+}
+
+.plot-note {
+  color: #c00;
+  margin: 10px auto;
+  min-width: 240px;
+  text-align: center;
+  width: 80%;
+}
+
+.screenshot {
+  margin: 50px auto 0px;
+  text-align: center;
+}
+
+.screenshot figcaption {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.standalone-code {
+  display: inline-block;
+  margin: 20px auto;
+}
+
+.title {
+  color: #c00;
+  font-family: "Lucida Sans Unicode", Helvetica, sans-serif;
+  text-align: center;
+}
+
+.title h1 {
+  margin-bottom: 0;
+}
+
+.title .lead {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#lab-logo {
+  display: inline-block;
+  height: 32px;
+  margin-right: 2px;
+  width: 32px;
+}
+
+#lab-name {
+  display: inline-block;
+  height: 34px;
+  line-height: 34px;
+  margin-bottom: 0;
+  margin-right: 20px;
+}
+
+#wanted {
+  width: 360px;
+}
+
+@media(max-width: 1028px) {
+  .plot, .control-div {
+      display: none;
+  }
+
+  .plot-note {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  figcaption {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  .canvas, 
+  .title {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .container-fluid .text-muted {
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  .grafo {
+    width: 600px;
+  }
+
+  .lead {
+    font-size: 12px;
+  }
+
+  .life-button {
+    height: 30px;
+    width: 70px;
+  }
+
+  .main-content {
+    text-align: center;
+  }
+
+  .main-content h2 {
+    font-family: "Lucida Sans Unicode", Helvetica, sans-serif;
+    font-size: 22px;
+    margin-left: 0;
+  }
+
+  .main-content h3 {
+    margin-left: 0;
+  }
+
+  .main-content p {
+    text-align: justify;
+  }
+
+  .main-content ul, 
+  .main-content ol {
+    text-align: left;
+  }
+
+  .navbar-nav {
+    margin-top: 6px;
+  }
+
+  .note-small {
+    display: inline-block;
+    font-size: 10px;
+    margin-top: 10px;
+    text-align: justify;
+  }
+
+  .screenshot {
+    margin-top: 5px;
+  }
+
+  .screenshot figcaption {
+    font-size: 10px;
+  }
+
+  .screenshot img {
+    width: 300px;
+  }
+
+  .title h1 {
+    font-size: 30px;
+    margin: 0;
+  }
+
+  #ejemplo {
+    text-align: left;
+  }
+
+  #lab-name {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 0;
+  }
+}
+
+@media(max-width: 640px) {
+  figcaption {
+    margin-top: 5px;
+  }
+  
+  .grafo {
+    width: 440px;
+  }
+
+  .lead {
+    margin-bottom: 0px;
+  }
+ 
+  #ejemplo {
+    text-align: left;
+  }
+
+  #welcome {
+    width: 440px;
+  }
+}
+
+@media(max-width: 480px) {
+  figcaption {
+    margin-top: 5px;
+  }
+  
+  .grafo {
+    width: 320px;
+  }
+
+  .lead {
+    margin-bottom: 5px;
+  }
+  
+  #ejemplo {
+    text-align: left;
+  }
+
+  #wanted {
+    width: 320px;
+  }
+
+  #welcome {
+    width: 320px;
+  }
+
+}
+
+@media(max-width: 360px) {
+  figcaption {
+    margin-top: 5px;  
+  }
+ 
+  .grafo {
+    width: 280px;
+  }
+ 
+  .lead {
+     margin-bottom: 0px;
+  }
+  
+  #ejemplo {
+    text-align: left;
+  }
+
+  #welcome {
+    margin-top: 0px;
+    width: 280px;
+  }
+
+  #wanted {
+    width:280px;
+  }
+}

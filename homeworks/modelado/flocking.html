@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--base href="http://localhost/"-->
+        <base href="http://www.prime.cic.ipn.mx/~jcaguilar1308/">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="application-name" content="bflock">
+        <meta name="author" content="José Aguilar-Canepa">
+        <meta name="description" content="Bird flocking simulation">
+        <meta name="keywords" content="bird flocking,simulation,swarm intelligence,algorithm">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+        <meta name="msapplication-config" content="favicons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+        <title>Bird flocking | jcaguilar @ NDS-Lab</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicons/favicon-194x194.png" sizes="194x194">
+        <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="favicons/manifest.json">
+        <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#cc0000">
+        <link rel="shortcut icon" href="favicons/favicon.ico">
+    </head>
+    <body>
+        <header id="menu">
+        </header>
+        <article>
+            <div class="container-fluid title">
+                <h1>Bird flocking</h1>
+                <p class="lead">A computational model</p>
+            </div>
+            <div class="container-fluid canvas">
+                <figure>
+                    <canvas id="flocking" width="240" height="184" data-processing-sources="pde/flocking.pde">
+                        Sorry! Your web browser does not support HTML5. To view this content, you'll need an HTML5-compliant web browser.<br>
+                        Why don't you try <a href="https://www.mozilla.org/es-MX/firefox/new/" target="_blank">Firefox</a>? It's free!
+                    </canvas>
+                    <figcaption>
+                        A flock of birds. Click on any place to add a new bird.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="container-fluid">
+                <p class="note-small">
+                    <strong>Note:</strong> Due to rendering limitations, the simulation may not behave as expected on screens with a size smaller than 800 x 600. To optimal quality, we recommend to visit this webpage on a desktop computer.
+                </p>
+            </div>
+            <div class="container-fluid main-content">
+                <section>
+                    <h2>Introduction</h2>
+                    <p>
+                        Have you ever seen a flock of birds flying? Many bird species form flocks for a variety of reasons, included but not limited to:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Foraging:</strong> feeding in group allows the birds to take advantage of the same food supplies.
+                        </li>
+                        <li>
+                            <strong>Protection:</strong> a large group of birds has a better chance of spotting a predator or another potential threar than a single bird has.
+                        </li>
+                        <li>
+                            <strong>Mating:</strong> male birds performing in a flock make themselves more visible to a greater number of females, increasing their chances of a successful mating.
+                        </li>
+                        <li>
+                            <strong>Warmth:</strong> during winter, bird flocks can share the benefit of communal warmth to survive severely cold temperatures.
+                        </li>
+                        <li>
+                            <strong>Aerodynamics:</strong> while flying in flocks, birds arrange themselves in specific formations that take advantage of changing wind patterns, allowing them to use the air currents in the most energy-efficient way.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Modeling the behavior</h2>
+                    <p>
+                        Flocking behavior was first simulated on a computer in 1987 by Craig Reynolds, with his simulation program, <em>Boids</em>. Reynolds assumed that flocking birds were driven by three local forces: <strong>collision avoidance</strong>, <strong>velocity matching</strong> and <strong>flock centering</strong>. That is, a bird in a flock
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>pulls away</strong> before it crashes with a neighbor.
+                        </li>
+                        <li>
+                            tries to go about the <strong>same speed</strong> as its neighbors in the flock.
+                        </li>
+                        <li>
+                            tries to move <strong>towards the center</strong> of the flock as it perceives it.
+                        </li>
+                    </ul>
+                    <p>
+                        Implementing just these three simple rules, Reynolds' programs showed very realistic flocking behavior, with coherent clusters of simple agents called 'boids' whirling through the three-dimensional simulated space, splitting to flock around obstacles and rejoining again.
+                    </p>
+                    <p>
+                        The simulation above is a simplification of the original algorithm by Reynolds, to adapt it to a two-dimensional simulated space. Birds in the simulation start at random positions, and form clusters as they fly around the unbounded simulated space. Eventually, when enough time has passed, the clusters merge to form a flock. New birds can be added to the simulation simply by clicking over the space.
+                    </p>
+                </section>
+                <section>
+                    <h2>How it works?</h2>
+                    <p>
+                        Each bird in the simulation is modeled as a set of 3-dimentional vectors: <code>loc</code>, the vector that indicates position; <code>vel</code>, the vector that indicats velocity; and <code>acc</code>, the vector that indicates acceleration. Each bird has direct access to the whole scene's information, but flocking requires that it reacts only to flockmates within a certain small neighborhood around itself, characterized by a <em>distance</em>: flockmates outside this local neighborhood are ignored.
+                    </p>
+                    <figure>
+                        <img src="img/neighborhood.gif" alt="Bird's neighborhood">
+                        <figcaption>A bird's neighborhood</figcaption>
+                    </figure>
+                    <p>
+                        The flocking behavior requires that birds follow three simple rules that describe how an individual bird steers and maneuvers based on the positions and velocities of  its nearby flockmates.
+                    </p>
+                    <section>
+                        <h3>Rule 1: Separation</h3>
+                        <p>
+                            Each bird defines a security area around itself, defined by a circle with fixed ratio. Any bird inside the security area is considered "too close", and so the bird computes a vector that allows it to avoid crowding local flockmates.
+                        </p>
+                        <figure>
+                            <img src="img/separation.gif" alt="Birds fly away of neighbors that are too close to avoid crashing.">
+                            <figcaption>Separation prevents collisions</figcaption>
+                        </figure>        
+                    </section>
+                    <section>
+                        <h3>Rule 2: Alignment</h3>
+                        <p>
+                            Each bird tries to follow the same direction that the flock is following. To do this, birds compute the average direction of their neighbors and steer themselves accordingly.
+                        </p>
+                        <figure>
+                            <img src="img/alignment.gif" alt="Birds try to follow the same direction of their neighbors.">
+                            <figcaption>Alignment allows birds to fly in the same direction</figcaption>
+                        </figure>
+                    </section>
+                    <section>
+                        <h3>Rule 3: Cohesion</h3>
+                        <p>
+                            To keep the flock, birds need to fly together so they move towards the "center" of the flock as each of them perceives it. To do this, each bird computes the average position of all its neighboring flockmates and moves itself towards it.
+                        </p>
+                        <figure>
+                            <img src="img/cohesion.gif" alt="Birds try to fly towards the center of the flock.">
+                            <figcaption>Cohesion keeps the flock united</figcaption>
+                        </figure>
+                    </section>
+                </section>
+                <section>
+                    <h2>Swarm Intelligence</h2>
+                    <p>
+                        Bird flocking is an example of a phenomenon known as <em>swarm intelligence</em>, the collective behavior of decentralized, self-organized systems composed of simple agents (named 'boids' after Reynolds' work) interacting locally with one another and with their environment. The inspiration often comes from nature, especially biological systems. The agents follow simple rules (like the three rules exposed above) and the interaction between agents lead to the emergent of "intelligent" global behavior, unknown to the individual agents.
+                    </p>
+                    <p>
+                        Swarm intelligence-based techniques are used in a wide number of applications, for example the U.S. military plans to used swarm techniques for controlling unmanned vehicles, the European Space Agency is thinking about an orbital swarm for self-assembly and defense, and some researchers discusses the possibility of using swarm intelligence to control nanobots within the human body for the purpose of killing cancer tumors. Swarm intelligence has also been used in everyday life applications, such data mining, network routing, and flight planning.
+                    </p>
+                </section>
+                <section>
+                    <h2>Sources</h2>
+                    <p>
+                        All of the simulation's code is written on a special  language called Processing, which is later translated into JavaScript by the <a href="http://processingjs.org/" target="_blank">Processing</a> JavaScript library. You can download and examine the original Processing source code <a href="pde/flocking.pde" target="_blank">here</a>.<br>
+                        The code requires <a href="http://code.jquery.com/jquery-2.1.4.min.js" target="_blank">JQuery 2.1.4</a> or higher and Processing 1.4.1 or higher to work.
+                    </p>
+                </section>
+            </div>
+        </article>
+        <aside>
+            <div class="container-fluid">
+                <section>
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            Reynolds, Craig. "<a href="http://www.red3d.com/cwr/boids/" target="_blank">"Boids (Flocks, Herds, and Schools: A Distributed Behavioral Model)</a>". Retrieved Nov 12<sup>th</sup>, 2015.
+                        </li>
+                        <li>
+                            Mayntz, Melissa. "<a href="http://birding.about.com/od/birdbehavior/a/Why-Birds-Flock.htm" target="_blank">Why Birds Flock</a>". Retrieved Nov 12<sup>th</sup>, 2015.
+                        </li>
+                        <li>
+                            Reas, Casey, and Ben Fry. "<a href="http://processingjs.org/learning/topic/flocking/" target="_blank">Flocking</a>". Retrieved Nov 12<sup>th</sup>, 2015.
+                        </li>
+                        <li>
+                            "<a href="https://en.wikipedia.org/wiki/Swarm_intelligence" target="_blank">Swarm Intelligence</a>". Wikipedia. Wikimedia Foundation. Retrieved Nov 12<sup>th</sup>, 2015.
+                        </li>
+                        <li>
+                            Kennedy, James, and Eberhart, Russel. (2001). <em>Swarm Intelligence</em>. San Diego, CA: Morgan Kaufmann.
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </aside>
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="text-muted">
+                    Graphics on the simulation are made possible by the <a href="http://processingjs.org/" target="_blank">processing.js</a> library.<br>
+                    &copy; 2015 - 2016 José Aguilar-Canepa.
+                </p>
+            </div>
+        </footer>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/processing.js"></script>
+        <script>$('#menu').load('menu.html');</script>
+    </body>
+</html>
